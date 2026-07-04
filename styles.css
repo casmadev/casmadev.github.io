@@ -166,6 +166,8 @@ a {
 @media (max-width: 860px) {
   .hero {
     grid-template-columns: 1fr;
+    /* Single column reads top-down — less air before the headline. */
+    padding-top: 1.5rem;
   }
 }
 
@@ -341,6 +343,34 @@ a {
 @media (prefers-color-scheme: dark) {
   .note--photo {
     filter: brightness(0.9);
+  }
+}
+
+/* Stacked hero: the whiteboard panel disappears and the notes float
+ * free as a collage. (Overrides the inline --x/--y/--r, which are
+ * tuned for desktop; translate is kept so dragging still works.) */
+@media (max-width: 860px) {
+  .board {
+    background: none;
+    border: none;
+    box-shadow: none;
+  }
+
+  .board__grid {
+    display: none;
+  }
+
+  .note--photo {
+    left: 8%;
+    top: 3%;
+    width: 76%;
+    max-width: 76%;
+    transform: translate(var(--dx, 0), var(--dy, 0)) rotate(3deg);
+  }
+
+  .note--green {
+    top: 90%;
+    transform: translate(var(--dx, 0), var(--dy, 0)) rotate(-4deg);
   }
 }
 

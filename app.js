@@ -267,20 +267,38 @@ const GROUP_COLORS = {
   );
   document.querySelectorAll('.reveal').forEach((el) => revealer.observe(el));
 
+  // Scrollspy: exactly one nav link active at a time — the last section
+  // whose top has passed the reference line (35% down the viewport).
+  // At the very bottom of the page, the last section wins regardless,
+  // since a short final section may never reach the reference line.
   const navLinks = [...document.querySelectorAll('.top__nav a')];
   const sections = navLinks
     .map((a) => document.querySelector(a.getAttribute('href')))
     .filter(Boolean);
-  const spotlight = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        const link = navLinks.find((a) => a.getAttribute('href') === `#${entry.target.id}`);
-        if (link) link.classList.toggle('is-active', entry.isIntersecting);
-      });
-    },
-    { rootMargin: '-35% 0px -55% 0px' }
-  );
-  sections.forEach((s) => spotlight.observe(s));
+
+  let ticking = false;
+  const setActive = () => {
+    ticking = false;
+    const refY = window.scrollY + window.innerHeight * 0.35;
+    let current = null;
+    sections.forEach((s) => {
+      if (s.offsetTop <= refY) current = s;
+    });
+    const atBottom =
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    if (atBottom) current = sections[sections.length - 1];
+    navLinks.forEach((a) => {
+      a.classList.toggle('is-active', !!current && a.getAttribute('href') === `#${current.id}`);
+    });
+  };
+  const onScroll = () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(setActive);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  setActive();
 })();
 
 /* ======================= Footer year + "built with" ======================= */
