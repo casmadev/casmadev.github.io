@@ -354,8 +354,11 @@ a {
 
 .section {
   max-width: 1080px;
-  margin: clamp(3rem, 8vw, 5.5rem) auto 0;
-  padding: 0 clamp(1.25rem, 4vw, 2rem);
+  /* Subtle divider between sections; spacing split between margin and
+   * padding so the line sits centered in the gap. */
+  margin: clamp(1.5rem, 4vw, 2.75rem) auto 0;
+  padding: clamp(1.5rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2rem) 0;
+  border-top: 1px solid var(--line);
 }
 
 .section__title {
