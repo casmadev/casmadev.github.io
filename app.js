@@ -11,34 +11,47 @@
  *          column indices, exactly like CasmaPlanner unit indices.
  *          Markers are point-in-time labels pinned to a column. */
 const TIMELINE = {
-  columns: ['2025 Q3', '2025 Q4', '2026 Q1', '2026 Q2', '2026 Q3', '2026 Q4'],
+  // One column per year, 2014 → 2026. Label every other year so the
+  // header stays legible; empty strings render as blank header cells.
+  columns: ['2014', '', '2016', '', '2018', '', '2020', '', '2022', '', '2024', '', '2026'],
   lanes: [
     {
-      markers: [{ at: 4, label: '@casmadev/board v1.0.0 on npm 🎉' }],
+      markers: [{ at: 13, label: '@casmadev/board v1.0.0 on npm 🎉' }],
     },
     {
       bars: [
         {
           start: 1,
-          span: 4,
-          color: '#f97316',
-          label: 'CasmaBoard',
-          tip: 'Designed and built a DOM + CSS React whiteboard from scratch — sticky notes with 3D tilt, infinite pan & zoom, 8 locales, full TypeScript types. Shipped v1.0.0 to npm.',
+          span: 1,
+          color: '#c08bf4',
+          label: 'Fullstack web dev',
+          tip: 'First professional year — fullstack web applications and legacy-system migrations.',
         },
         {
-          start: 5,
-          span: 2,
-          color: '#fb923c',
-          label: 'CasmaBoard — maintenance',
-          tip: 'Post-1.0 maintenance: issues, docs, and small feature releases.',
+          start: 2,
+          span: 12,
+          color: '#f4a259',
+          label: 'Enterprise consulting & architecture',
+          tip: 'Consulting for Brazilian and international customers in telecom, HR, auditing, insurance and retail. Bridging .NET, SQL Server, PostgreSQL and IBM i (AS/400) with AWS cloud architecture; tech lead in Agile teams; technical governance through ADRs and platform standards.',
         },
       ],
     },
     {
       bars: [
         {
-          start: 3,
-          span: 4,
+          start: 12,
+          span: 2,
+          color: '#f97316',
+          label: 'CasmaBoard',
+          tip: 'Designed and built a DOM + CSS React whiteboard from scratch — sticky notes with 3D tilt, infinite pan & zoom, 8 locales, full TypeScript types. Shipped v1.0.0 to npm.',
+        },
+      ],
+    },
+    {
+      bars: [
+        {
+          start: 13,
+          span: 1,
           color: '#6366f1',
           label: 'CasmaPlanner',
           tip: 'A flexible React timeline / roadmap component — typed rows, draggable task bars, markers, configurable time units, collapsible side panels. In active development.',
@@ -48,11 +61,11 @@ const TIMELINE = {
     {
       bars: [
         {
-          start: 1,
-          span: 6,
+          start: 2,
+          span: 12,
           color: '#54c7c7',
-          label: 'Open source & experiments',
-          tip: 'Games in Godot, dev tooling, and lots of prototypes — the fun stuff that keeps the saw sharp.',
+          label: 'Open source & community',
+          tip: 'Community components, games in Godot, dev tooling and lots of prototypes — the fun stuff that keeps the saw sharp.',
         },
       ],
     },
@@ -70,12 +83,28 @@ const SKILLS = [
   { name: 'Component API design', group: 'Design' },
   { name: 'Design systems & theming', group: 'Design' },
   { name: 'UX for direct manipulation', group: 'Design' },
+  { name: '.NET', group: 'Backend & data' },
+  { name: 'Node.js', group: 'Backend & data' },
+  { name: 'SQL Server', group: 'Backend & data' },
+  { name: 'PostgreSQL', group: 'Backend & data' },
+  { name: 'REST API design', group: 'Backend & data' },
+  { name: 'ETL & data synchronization', group: 'Backend & data' },
+  { name: 'IBM i (AS/400) integration', group: 'Backend & data' },
+  { name: 'AWS', group: 'Cloud & identity' },
+  { name: 'CloudFormation (IaC)', group: 'Cloud & identity' },
+  { name: 'Amazon Cognito', group: 'Cloud & identity' },
+  { name: 'Microsoft Entra', group: 'Cloud & identity' },
+  { name: 'Solution architecture', group: 'Architecture & leadership' },
+  { name: 'Architecture Decision Records', group: 'Architecture & leadership' },
+  { name: 'Distributed systems', group: 'Architecture & leadership' },
+  { name: 'Performance engineering', group: 'Architecture & leadership' },
+  { name: 'Developer experience', group: 'Architecture & leadership' },
+  { name: 'Tech leadership & Agile', group: 'Architecture & leadership' },
   { name: 'Rollup', group: 'Tooling' },
   { name: 'Vitest', group: 'Tooling' },
   { name: 'TypeDoc', group: 'Tooling' },
   { name: 'npm packaging (ESM + CJS)', group: 'Tooling' },
   { name: 'Git & GitHub Actions', group: 'Tooling' },
-  { name: 'Node.js', group: 'Beyond the browser' },
   { name: 'Godot / GDScript', group: 'Beyond the browser' },
   { name: 'Game prototyping', group: 'Beyond the browser' },
 ];
@@ -83,6 +112,9 @@ const SKILLS = [
 const GROUP_COLORS = {
   Frontend: '#f97316',
   Design: '#c4a7ff',
+  'Backend & data': '#f4a259',
+  'Cloud & identity': '#54c7c7',
+  'Architecture & leadership': '#ffba42',
   Tooling: '#8ec5ff',
   'Beyond the browser': '#a8e063',
 };
