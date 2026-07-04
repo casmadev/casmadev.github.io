@@ -229,19 +229,6 @@ a {
   font-size: 0.9em;
 }
 
-.hero__hint {
-  margin: 1.25rem 0 0;
-  font-size: 0.82rem;
-  color: var(--muted);
-  font-style: italic;
-}
-
-@media (max-width: 860px) {
-  .hero__hint {
-    display: none;
-  }
-}
-
 /* ---------- CTA buttons ---------- */
 
 .cta {
@@ -318,6 +305,7 @@ a {
   position: absolute;
   left: var(--x);
   top: var(--y);
+  width: max-content;
   max-width: 46%;
   padding: 0.95rem 1.1rem 1.35rem;
   font-family: 'Bradley Hand', 'Segoe Print', 'Comic Sans MS', cursive;
@@ -356,9 +344,9 @@ a {
 /* Polaroid-style photo card — same drag behavior as the sticky notes. */
 .note--photo {
   margin: 0;
-  width: 64%;
-  max-width: 64%;
-  padding: 0.55rem 0.55rem 0.35rem;
+  width: 94%;
+  max-width: 94%;
+  padding: 0.7rem;
   background: #fff;
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
@@ -367,16 +355,14 @@ a {
   display: block;
   width: 100%;
   height: auto;
+  transform: scaleX(-1);
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-.note--photo figcaption {
-  padding: 0.15rem 0.2rem 0.25rem;
-  text-align: center;
-  font-size: 0.85em;
-  color: #33332f;
+[data-theme='dark'] .note--photo {
+  filter: brightness(0.9);
 }
 
 .note--yellow { background: var(--sticky-yellow); }
@@ -599,125 +585,46 @@ a {
   color: var(--text-2);
 }
 
-.facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin-top: 1.4rem;
+/* ---------- Tech logos ---------- */
+
+.tech {
+  display: grid;
+  /* Min column width chosen so all 8 tiles fit on one row inside the
+   * 1080px section at full page width. */
+  grid-template-columns: repeat(auto-fit, minmax(104px, 1fr));
+  gap: 0.9rem;
 }
 
-/* ---------- Planner-style timeline ---------- */
-
-.planner {
+.tech__item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 1.2rem 0.75rem 0.95rem;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 1.1rem 1.25rem 1.35rem;
-  overflow-x: auto;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.planner__head {
-  display: grid;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 0.4rem;
-  margin-bottom: 0.9rem;
-  min-width: 560px;
+.tech__item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 14px 30px rgba(0, 0, 0, 0.12);
 }
 
-.planner__head span {
-  font-size: 0.7rem;
-  font-weight: 700;
+.tech__item img {
+  height: 44px;
+  width: auto;
+  max-width: 88%;
+}
+
+.tech__item figcaption {
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--muted);
-}
-
-.planner__lane {
-  display: grid;
-  margin-bottom: 0.55rem;
-  min-width: 560px;
-}
-
-.planner__bar {
-  position: relative;
-  height: 34px;
-  border-radius: 8px;
-  background: var(--c);
-  color: #fff;
-  font-size: 0.78rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  padding: 0 0.75rem;
-  white-space: nowrap;
-  overflow: visible;
-  cursor: pointer;
-  border: 0;
-  font-family: inherit;
-  text-align: left;
-  transform-origin: left center;
-  transition: filter 0.15s ease, transform 0.15s ease;
-}
-
-.planner__bar > span {
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.planner__bar:hover,
-.planner__bar:focus-visible {
-  filter: brightness(1.08);
-  transform: scaleY(1.12);
-  z-index: 5;
-}
-
-/* Shared tooltip, attached to <body> so the planner's scroll container
- * can't clip it. Positioned by app.js. */
-.planner-tip {
-  position: absolute;
-  z-index: 60;
-  max-width: 300px;
-  padding: 0.6rem 0.75rem;
-  background: var(--text);
-  color: var(--bg);
-  font-size: 0.76rem;
-  font-weight: 500;
-  line-height: 1.45;
-  border-radius: 8px;
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.25);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(4px);
-  transition: opacity 0.15s ease, transform 0.15s ease;
-}
-
-.planner-tip.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.planner__marker {
-  justify-self: start;
-  align-self: center;
-  transform: translateX(-50%);
-  background: var(--surface);
-  border: 1.5px solid var(--accent);
-  border-radius: 999px;
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: var(--text);
-  padding: 0.1em 0.7em;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  white-space: nowrap;
-}
-
-.planner__marker i {
-  width: 7px;
-  height: 7px;
-  background: var(--accent);
-  transform: rotate(45deg);
-  border-radius: 1.5px;
+  text-align: center;
 }
 
 /* ---------- Skills ---------- */
@@ -760,6 +667,7 @@ a {
 }
 
 .skill {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
@@ -774,7 +682,16 @@ a {
 }
 
 .skill:hover {
-  transform: translateY(-2px) rotate(-1deg);
+  transform: translateY(-2px) rotate(-2deg);
+}
+
+/* While hovered, pad the hit area so the tilted pill still covers the
+ * cursor at its original edges — otherwise hover flickers on/off when
+ * the pill rotates away from the pointer. */
+.skill:hover::after {
+  content: '';
+  position: absolute;
+  inset: -9px;
 }
 
 .skill i {
@@ -825,21 +742,6 @@ a {
 
 .site-footer p {
   margin: 0.25rem 0;
-}
-
-.site-footer a {
-  color: var(--accent-ink);
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.site-footer a:hover {
-  text-decoration: underline;
-}
-
-.site-footer span[aria-hidden='true'] {
-  margin: 0 0.5rem;
-  color: var(--line);
 }
 
 .license {
