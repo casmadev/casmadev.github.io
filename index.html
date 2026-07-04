@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caio Santana Magalhães — casmadev</title>
+    <meta
+      name="description"
+      content="Caio Santana Magalhães (casmadev) — software engineer crafting interactive, DOM-first UI components in React and TypeScript. Creator of CasmaBoard and CasmaPlanner."
+    />
+    <meta property="og:title" content="Caio Santana Magalhães — casmadev" />
+    <meta
+      property="og:description"
+      content="Software engineer crafting interactive, DOM-first UI components. Creator of CasmaBoard and CasmaPlanner."
+    />
+    <meta property="og:url" content="https://casmadev.github.io/" />
+    <meta property="og:image" content="https://casmadev.github.io/assets/me-riding.jpg" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000'%3E%3Cg fill='none' stroke='%23f97316' stroke-width='90' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M830 448 L710 240 Q680 188 620 188 L380 188 Q320 188 290 240 L170 448 Q140 500 170 552 L290 760 Q320 812 380 812 L620 812 Q680 812 710 760 L830 552 Q860 500 830 448 Z'/%3E%3Cpath d='M336 307 L561 307 Q611 307 636 350 L697 457 Q722 500 672 500 L328 500 Q278 500 303 543 L364 650 Q389 693 439 693 L664 693'/%3E%3C/g%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="top">
+      <a class="top__brand" href="#" aria-label="casmadev — home">
+        <svg class="logo" viewBox="0 0 1000 1000" aria-hidden="true">
+          <g fill="none" stroke="currentColor" stroke-width="90" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M830 448 L710 240 Q680 188 620 188 L380 188 Q320 188 290 240 L170 448 Q140 500 170 552 L290 760 Q320 812 380 812 L620 812 Q680 812 710 760 L830 552 Q860 500 830 448 Z"/>
+            <path d="M336 307 L561 307 Q611 307 636 350 L697 457 Q722 500 672 500 L328 500 Q278 500 303 543 L364 650 Q389 693 439 693 L664 693"/>
+          </g>
+        </svg>
+        <span>casmadev</span>
+      </a>
+      <nav class="top__nav" aria-label="Sections">
+        <a href="#projects">Projects</a>
+        <a href="#timeline">Timeline</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="theme-toggle__icon" aria-hidden="true"></span>
+      </button>
+    </header>
+
+    <!-- ================= Hero ================= -->
+    <section class="hero">
+      <div class="hero__copy">
+        <p class="eyebrow">Software engineer · React · TypeScript · DOM&nbsp;+&nbsp;CSS</p>
+        <h1 class="headline">
+          Hi, I'm <span class="headline__name">Caio&nbsp;Santana Magalhães</span>
+        </h1>
+        <p class="tagline">
+          I build <strong>interactive, DOM-first UI components</strong> — whiteboards,
+          timelines and roadmaps that live in real DOM nodes, styled with CSS.
+          No <code>&lt;canvas&gt;</code>, no heavy dependencies, full TypeScript types.
+        </p>
+        <div class="cta">
+          <a class="btn btn--primary" href="#projects">
+            <span class="btn__label">See my work</span>
+            <span class="btn__sub">CasmaBoard · CasmaPlanner</span>
+          </a>
+          <a class="btn btn--secondary" href="#contact">
+            <span class="btn__label">Get in touch</span>
+            <span class="btn__sub">GitHub</span>
+          </a>
+        </div>
+        <p class="hero__hint" aria-hidden="true">Psst — the sticky notes are draggable. Anywhere. →</p>
+      </div>
+
+      <div class="board" id="board" aria-label="Mini whiteboard — drag the sticky notes">
+        <div class="board__grid" aria-hidden="true"></div>
+        <!-- Notes are enhanced (drag + tilt) by app.js -->
+        <div class="note note--yellow" style="--x: 6%; --y: 8%; --r: -3deg" tabindex="0">Drag me! 👋</div>
+        <figure class="note note--photo" style="--x: 31%; --y: 7%; --r: 2deg" tabindex="0">
+          <img src="assets/me-riding.jpg" alt="Stylized photo of Caio on a scooter, giving a thumbs up" draggable="false" />
+          <figcaption>me, shipping 🛴</figcaption>
+        </figure>
+        <div class="note note--green" style="--x: 10%; --y: 56%; --r: -2deg" tabindex="0">Feito no Brasil 🇧🇷</div>
+      </div>
+    </section>
+
+    <!-- ================= Projects ================= -->
+    <main>
+      <section class="section" id="projects">
+        <h2 class="section__title">Projects</h2>
+        <p class="section__lead">
+          Open-source React components published under
+          <a href="https://github.com/casmadev">@casmadev</a> — each one ships with a
+          live sandbox, full API reference, 8 locales (including RTL) and zero runtime
+          dependencies.
+        </p>
+
+        <div class="projects">
+          <!-- CasmaBoard -->
+          <article class="project reveal">
+            <div class="project__visual project__visual--board" aria-hidden="true">
+              <span class="mini-note mini-note--yellow">idea</span>
+              <span class="mini-note mini-note--blue">todo</span>
+              <span class="mini-note mini-note--pink">ship it</span>
+              <span class="mini-note mini-note--green">v1.0 🎉</span>
+            </div>
+            <div class="project__body">
+              <h3>CasmaBoard <span class="chip chip--live">v1.0.0 on npm</span></h3>
+              <p class="project__pkg"><code>@casmadev/board</code></p>
+              <p>
+                A React whiteboard built with DOM + CSS. Sticky notes with a handwritten
+                font and a subtle 3D tilt that responds to camera motion, infinite
+                pan &amp; zoom, seven overlay slots and a <code>useCasmaBoard()</code> hook.
+              </p>
+              <div class="project__links">
+                <a href="https://casmadev.github.io/board/demo/">Sandbox</a>
+                <a href="https://casmadev.github.io/board/api/">API docs</a>
+                <a href="https://github.com/casmadev/board">GitHub</a>
+                <a href="https://www.npmjs.com/package/@casmadev/board">npm</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- CasmaPlanner -->
+          <article class="project reveal">
+            <div class="project__visual project__visual--planner" aria-hidden="true">
+              <span class="mini-bar" style="--c: #ffba42; grid-column: 1 / span 3; grid-row: 1">Platform</span>
+              <span class="mini-bar" style="--c: #6391fd; grid-column: 3 / span 3; grid-row: 2">Integrations</span>
+              <span class="mini-bar" style="--c: #5ed18a; grid-column: 5 / span 3; grid-row: 3">Launch</span>
+              <span class="mini-bar" style="--c: #c08bf4; grid-column: 2 / span 4; grid-row: 4">Design system</span>
+            </div>
+            <div class="project__body">
+              <h3>CasmaPlanner <span class="chip">in development</span></h3>
+              <p class="project__pkg"><code>@casmadev/planner</code></p>
+              <p>
+                A flexible React timeline / roadmap component. Generic typed rows,
+                draggable task bars, point-in-time markers, configurable time units
+                (day → quarter) and collapsible side panels.
+              </p>
+              <div class="project__links">
+                <a href="https://casmadev.github.io/planner/demo/">Demo</a>
+                <a href="https://casmadev.github.io/planner/api/">API docs</a>
+                <a href="https://github.com/casmadev/planner">GitHub</a>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <p class="projects__more reveal">
+          Both libraries share a philosophy: every shape is a <em>real, inspectable,
+          accessible DOM node</em>. Style it with CSS variables — there is no draw loop
+          to fight.
+        </p>
+      </section>
+
+      <!-- ================= Timeline ================= -->
+      <section class="section" id="timeline">
+        <h2 class="section__title">Timeline</h2>
+        <p class="section__lead">
+          My recent work, rendered the way CasmaPlanner would.
+          <span class="section__hint">Hover or tap a bar for details.</span>
+        </p>
+        <div class="planner reveal" id="planner" aria-label="Work timeline"></div>
+      </section>
+
+      <!-- ================= Skills ================= -->
+      <section class="section" id="skills">
+        <h2 class="section__title">Skills</h2>
+        <p class="section__lead">The tools I reach for. Click a group to filter.</p>
+        <div class="skill-filters" id="skill-filters" role="tablist" aria-label="Skill groups"></div>
+        <div class="skills" id="skills-grid"></div>
+      </section>
+
+      <!-- ================= Contact ================= -->
+      <section class="section section--contact" id="contact">
+        <h2 class="section__title">Get in touch</h2>
+        <p class="section__lead">
+          Want to talk components, open source, or work together? Find me on
+          GitHub — issues and discussions on any of my repos reach me.
+        </p>
+        <div class="contact-card reveal">
+          <div class="contact-card__links">
+            <a class="btn btn--secondary" href="https://github.com/casmadev">
+              <span class="btn__label">GitHub</span>
+              <span class="btn__sub">github.com/casmadev</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        <a href="https://github.com/casmadev">GitHub</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://casmadev.github.io/board/">CasmaBoard</a>
+        <span aria-hidden="true">·</span>
+        <a href="https://casmadev.github.io/planner/">CasmaPlanner</a>
+      </p>
+      <p class="license">© <span id="year">2026</span> Caio Santana Magalhães · Built with DOM + CSS, naturally.</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>
