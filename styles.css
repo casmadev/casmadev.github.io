@@ -23,19 +23,22 @@
   --glow-b: rgba(196, 167, 255, 0.22);
 }
 
-[data-theme='dark'] {
-  --bg: #17171a;
-  --surface: #1f1f24;
-  --text: #f2f2ef;
-  --text-2: #d9d9d3;
-  --muted: #a4a49c;
-  --line: rgba(255, 255, 255, 0.12);
-  --accent-ink: #fdba74;
-  --indigo: #818cf8;
-  --board-bg: #262219;
-  --board-sheen: rgba(255, 255, 255, 0.045);
-  --glow-a: rgba(142, 197, 255, 0.12);
-  --glow-b: rgba(196, 167, 255, 0.12);
+/* Dark mode follows the browser/OS preference — no toggle. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #17171a;
+    --surface: #1f1f24;
+    --text: #f2f2ef;
+    --text-2: #d9d9d3;
+    --muted: #a4a49c;
+    --line: rgba(255, 255, 255, 0.12);
+    --accent-ink: #fdba74;
+    --indigo: #818cf8;
+    --board-bg: #262219;
+    --board-sheen: rgba(255, 255, 255, 0.045);
+    --glow-a: rgba(142, 197, 255, 0.12);
+    --glow-b: rgba(196, 167, 255, 0.12);
+  }
 }
 
 * {
@@ -79,7 +82,9 @@ a {
   display: flex;
   align-items: center;
   gap: 1rem;
-  padding: 0.65rem clamp(1.25rem, 4vw, 2rem);
+  /* Match the content column: sections are 1080px max, centered, with
+   * clamp() side padding — so pad by the centering offset plus that. */
+  padding: 0.65rem calc(max(0px, (100% - 1080px) / 2) + clamp(1.25rem, 4vw, 2rem));
   background: color-mix(in srgb, var(--bg) 82%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -144,33 +149,6 @@ a {
     gap: 0.7rem;
     font-size: 0.8rem;
   }
-}
-
-.theme-toggle {
-  flex: 0 0 auto;
-  width: 2.1rem;
-  height: 2.1rem;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--surface);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  font-size: 1rem;
-  transition: transform 0.15s ease, border-color 0.15s ease;
-}
-
-.theme-toggle:hover {
-  transform: rotate(-15deg) scale(1.08);
-  border-color: var(--accent);
-}
-
-.theme-toggle__icon::before {
-  content: '🌙';
-}
-
-[data-theme='dark'] .theme-toggle__icon::before {
-  content: '☀️';
 }
 
 /* ---------- Hero ---------- */
@@ -361,8 +339,10 @@ a {
   -webkit-user-drag: none;
 }
 
-[data-theme='dark'] .note--photo {
-  filter: brightness(0.9);
+@media (prefers-color-scheme: dark) {
+  .note--photo {
+    filter: brightness(0.9);
+  }
 }
 
 .note--yellow { background: var(--sticky-yellow); }
@@ -410,12 +390,31 @@ a {
 }
 
 .project {
+  position: relative;
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* The title link stretches over the whole card, making it clickable. */
+.project__title-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.project__title-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* Keep the footer links clickable above the stretched title link. */
+.project__links {
+  position: relative;
+  z-index: 1;
 }
 
 .project:hover {
@@ -712,21 +711,29 @@ a {
   text-align: left;
 }
 
-.contact-card {
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 1.5rem;
-  display: grid;
-  gap: 1.25rem;
-  max-width: 34rem;
-}
-
 .contact-card__links {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+}
+
+/* Contact buttons: icon on the left, label + handle stacked on the right. */
+.btn--contact {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.btn--contact .btn__icon {
+  width: 1.7rem;
+  height: 1.7rem;
+  flex: 0 0 auto;
+}
+
+.btn--contact .btn__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
 /* ---------- Footer ---------- */

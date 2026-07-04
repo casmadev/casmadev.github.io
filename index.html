@@ -39,9 +39,6 @@
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle theme">
-        <span class="theme-toggle__icon" aria-hidden="true"></span>
-      </button>
     </header>
 
     <!-- ================= Hero ================= -->
@@ -73,7 +70,8 @@
         <figure class="note note--photo" style="--x: 2%; --y: -7%; --r: 2deg" tabindex="0">
           <img src="assets/me-riding.jpg" alt="Stylized photo of Caio on a scooter, giving a thumbs up" draggable="false" />
         </figure>
-        <div class="note note--green" style="--x: 65%; --y: 98%; --r: -2deg" tabindex="0">Feito no Brasil 🇧🇷</div>
+        <!-- min() caps the offset so the note never overflows the viewport on narrow screens -->
+        <div class="note note--green" style="--x: min(65%, 100% - 165px); --y: 98%; --r: -2deg" tabindex="0">Feito no Brasil 🇧🇷</div>
       </div>
     </section>
 
@@ -87,56 +85,8 @@
           live sandbox, full API reference, and zero runtime dependencies.
         </p>
 
-        <div class="projects">
-          <!-- CasmaBoard -->
-          <article class="project reveal">
-            <div class="project__visual project__visual--board" aria-hidden="true">
-              <span class="mini-note mini-note--yellow">idea</span>
-              <span class="mini-note mini-note--blue">todo</span>
-              <span class="mini-note mini-note--pink">ship it</span>
-              <span class="mini-note mini-note--green">v1.0 🎉</span>
-            </div>
-            <div class="project__body">
-              <h3>CasmaBoard <span class="chip chip--live">v1.0.0 on npm</span></h3>
-              <p class="project__pkg"><code>@casmadev/board</code></p>
-              <p>
-                A React whiteboard built with DOM + CSS. Sticky notes with a handwritten
-                font and a subtle 3D tilt that responds to camera motion, infinite
-                pan &amp; zoom, seven overlay slots and a <code>useCasmaBoard()</code> hook.
-              </p>
-              <div class="project__links">
-                <a href="https://casmadev.github.io/board/demo/">Sandbox</a>
-                <a href="https://casmadev.github.io/board/api/">API docs</a>
-                <a href="https://github.com/casmadev/board">GitHub</a>
-                <a href="https://www.npmjs.com/package/@casmadev/board">npm</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- CasmaPlanner -->
-          <article class="project reveal">
-            <div class="project__visual project__visual--planner" aria-hidden="true">
-              <span class="mini-bar" style="--c: #ffba42; grid-column: 1 / span 3; grid-row: 1">Platform</span>
-              <span class="mini-bar" style="--c: #6391fd; grid-column: 3 / span 3; grid-row: 2">Integrations</span>
-              <span class="mini-bar" style="--c: #5ed18a; grid-column: 5 / span 3; grid-row: 3">Launch</span>
-              <span class="mini-bar" style="--c: #c08bf4; grid-column: 2 / span 4; grid-row: 4">Design system</span>
-            </div>
-            <div class="project__body">
-              <h3>CasmaPlanner <span class="chip">in development</span></h3>
-              <p class="project__pkg"><code>@casmadev/planner</code></p>
-              <p>
-                A flexible React timeline / roadmap component. Generic typed rows,
-                draggable task bars, point-in-time markers, configurable time units
-                (day → quarter) and collapsible side panels.
-              </p>
-              <div class="project__links">
-                <a href="https://casmadev.github.io/planner/demo/">Demo</a>
-                <a href="https://casmadev.github.io/planner/api/">API docs</a>
-                <a href="https://github.com/casmadev/planner">GitHub</a>
-              </div>
-            </div>
-          </article>
-        </div>
+        <!-- Cards are rendered by app.js from the PROJECTS array. -->
+        <div class="projects" id="projects-grid"></div>
       </section>
 
       <!-- ================= About ================= -->
@@ -144,26 +94,22 @@
         <h2 class="section__title">About</h2>
         <div class="about reveal">
           <p>
-            I'm a Senior Software Engineer and Solutions Architect, building software
-            professionally since 2014. I enjoy solving complex technical problems and
-            quickly learning whatever a project requires.
-          </p>
-          <p>
-            My work spans modernizing enterprise systems with cloud-native
-            architectures, APIs, distributed systems, Infrastructure as Code, identity,
-            data integration, and developer tooling. I believe in pragmatic
-            engineering, systems thinking, and building software that's meant to last.
-          </p>
-          <p>
-            I lead Agile development teams as a Tech Lead, define architectural
-            standards through ADRs, and embrace AI-assisted development to build
-            software faster and smarter. In 2023, I was recognized as an
+            I'm a Senior Software Engineer and Solutions Architect
+            building software professionally since 2014. I thrive on solving complex
+            technical problems and quickly mastering whatever a project requires. In
+            2023, I was recognized as an
             <a href="https://www.outsystems.com/profile/uhai7lx3vk/" target="_blank" rel="noopener noreferrer">OutSystems MVP</a>.
           </p>
           <p>
-            Based in Brazil, I work in both Portuguese and English. Outside of work, I
-            build open-source projects, prototype games, assemble LEGO sets, and enjoy
-            exploring new places—sometimes by scooter.
+            My work spans cloud architecture, APIs, data integration,
+            and modernizing enterprise platforms. I combine hands-on engineering with
+            technical leadership, helping teams build software that's
+            scalable, maintainable, and built to last.
+          </p>
+          <p>
+            When I'm not working, I'm usually building open-source
+            projects, experimenting with new technologies, prototyping games,
+            or assembling LEGO sets :)
           </p>
         </div>
       </section>
@@ -223,17 +169,25 @@
           Want to talk components, open source, or work together? Reach me on
           LinkedIn, or through issues and discussions on any of my GitHub repos.
         </p>
-        <div class="contact-card reveal">
-          <div class="contact-card__links">
-            <a class="btn btn--secondary" href="https://www.linkedin.com/in/caiosm/">
+        <div class="contact-card__links reveal">
+          <a class="btn btn--secondary btn--contact" href="https://www.linkedin.com/in/caiosm/">
+            <svg class="btn__icon" viewBox="0 0 128 128" aria-hidden="true">
+              <path fill="currentColor" d="M116 3H12a8.91 8.91 0 00-9 8.8v104.42a8.91 8.91 0 009 8.78h104a8.93 8.93 0 009-8.81V11.77A8.93 8.93 0 00116 3zM39.17 107H21.06V48.73h18.11zm-9-66.21a10.5 10.5 0 1110.49-10.5 10.5 10.5 0 01-10.54 10.48zM107 107H88.89V78.65c0-6.75-.12-15.44-9.41-15.44s-10.87 7.36-10.87 15V107H50.53V48.73h17.36v8h.24c2.42-4.58 8.32-9.41 17.13-9.41C103.6 47.28 107 59.35 107 75z"/>
+            </svg>
+            <span class="btn__text">
               <span class="btn__label">LinkedIn</span>
               <span class="btn__sub">linkedin.com/in/caiosm</span>
-            </a>
-            <a class="btn btn--secondary" href="https://github.com/casmadev">
+            </span>
+          </a>
+          <a class="btn btn--secondary btn--contact" href="https://github.com/casmadev">
+            <svg class="btn__icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+            <span class="btn__text">
               <span class="btn__label">GitHub</span>
               <span class="btn__sub">github.com/casmadev</span>
-            </a>
-          </div>
+            </span>
+          </a>
         </div>
       </section>
     </main>

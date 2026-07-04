@@ -1,9 +1,52 @@
 /* ========================================================================
  * casmadev.github.io — resumé page
  *
- * Edit SKILLS below to keep the page up to date; everything
- * else is progressive enhancement (drag, theme, reveal, copy buttons).
+ * Edit PROJECTS and SKILLS below to keep the page up to date; everything
+ * else is progressive enhancement (drag, reveal, version fetch).
  * ===================================================================== */
+
+/* ---------- Data: projects ----------
+ * The whole card links to `landingUrl`. The version chip and the npm
+ * link only appear if the latest version is fetched from the npm
+ * registry successfully. */
+const PROJECTS = [
+  {
+    visual: `
+      <div class="project__visual project__visual--board" aria-hidden="true">
+        <span class="mini-note mini-note--yellow">idea</span>
+        <span class="mini-note mini-note--blue">todo</span>
+        <span class="mini-note mini-note--pink">ship it</span>
+        <span class="mini-note mini-note--green">v1.0 🎉</span>
+      </div>`,
+    title: 'CasmaBoard',
+    pkg: '@casmadev/board',
+    description:
+      'A React whiteboard built with DOM + CSS. Sticky notes with a handwritten font and a subtle 3D tilt that responds to camera motion and infinite pan & zoom.',
+    landingUrl: 'https://casmadev.github.io/board/',
+    demoUrl: 'https://casmadev.github.io/board/demo/',
+    apiUrl: 'https://casmadev.github.io/board/api/',
+    githubUrl: 'https://github.com/casmadev/board',
+    npmUrl: 'https://www.npmjs.com/package/@casmadev/board',
+  },
+  {
+    visual: `
+      <div class="project__visual project__visual--planner" aria-hidden="true">
+        <span class="mini-bar" style="--c: #ffba42; grid-column: 1 / span 3; grid-row: 1">Platform</span>
+        <span class="mini-bar" style="--c: #6391fd; grid-column: 3 / span 3; grid-row: 2">Integrations</span>
+        <span class="mini-bar" style="--c: #5ed18a; grid-column: 5 / span 3; grid-row: 3">Launch</span>
+        <span class="mini-bar" style="--c: #c08bf4; grid-column: 2 / span 4; grid-row: 4">Design system</span>
+      </div>`,
+    title: 'CasmaPlanner',
+    pkg: '@casmadev/planner',
+    description:
+      'A flexible React timeline / roadmap component. Generic typed rows, draggable task bars, point-in-time markers, configurable time units (day → quarter) and collapsible side panels.',
+    landingUrl: 'https://casmadev.github.io/planner/',
+    demoUrl: 'https://casmadev.github.io/planner/demo/',
+    apiUrl: 'https://casmadev.github.io/planner/api/',
+    githubUrl: 'https://github.com/casmadev/planner',
+    npmUrl: 'https://www.npmjs.com/package/@casmadev/planner',
+  },
+];
 
 /* ---------- Data: skills ---------- */
 const SKILLS = [
@@ -43,22 +86,6 @@ const GROUP_COLORS = {
   Tooling: '#8ec5ff',
   'Beyond the browser': '#a8e063',
 };
-
-/* ======================= Theme toggle ======================= */
-(() => {
-  const root = document.documentElement;
-  const stored = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  if (stored === 'dark' || (!stored && prefersDark)) {
-    root.dataset.theme = 'dark';
-  }
-
-  document.querySelector('.theme-toggle').addEventListener('click', () => {
-    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    localStorage.setItem('theme', next);
-  });
-})();
 
 /* ======================= Draggable sticky notes ======================= */
 (() => {
@@ -138,6 +165,50 @@ const GROUP_COLORS = {
       note.style.setProperty('--dx', `${dx}px`);
       note.style.setProperty('--dy', `${dy}px`);
     });
+  });
+})();
+
+/* ======================= Project cards ======================= */
+(() => {
+  const grid = document.getElementById('projects-grid');
+  if (!grid) return;
+
+  PROJECTS.forEach((p) => {
+    const card = document.createElement('article');
+    card.className = 'project reveal';
+    // The title link is stretched over the whole card via CSS; the
+    // other links sit above it (z-index) so they stay clickable.
+    card.innerHTML = `
+      ${p.visual}
+      <div class="project__body">
+        <h3>
+          <a class="project__title-link" href="${p.landingUrl}">${p.title}</a>
+          <span class="chip chip--live" hidden></span>
+        </h3>
+        <p class="project__pkg"><code>${p.pkg}</code></p>
+        <p>${p.description}</p>
+        <div class="project__links">
+          <a href="${p.demoUrl}">Demo</a>
+          <a href="${p.apiUrl}">API docs</a>
+          <a href="${p.githubUrl}">GitHub</a>
+          <a class="project__npm" href="${p.npmUrl}" hidden>npm</a>
+        </div>
+      </div>`;
+    grid.appendChild(card);
+
+    // Version chip + npm link appear only if the registry lookup works.
+    fetch(`https://registry.npmjs.org/${encodeURIComponent(p.pkg)}/latest`)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((info) => {
+        if (!info.version) return;
+        const chip = card.querySelector('.chip');
+        chip.textContent = `v${info.version} on npm`;
+        chip.hidden = false;
+        card.querySelector('.project__npm').hidden = false;
+      })
+      .catch(() => {
+        /* unpublished or offline — no version shown */
+      });
   });
 })();
 
