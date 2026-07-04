@@ -266,7 +266,6 @@ a {
     var(--board-bg);
   box-shadow: var(--shadow);
   /* No overflow clipping — notes are allowed to escape onto the page. */
-  touch-action: none;
 }
 
 .board__grid {
@@ -373,6 +372,11 @@ a {
 
 .section__hint {
   font-style: italic;
+}
+
+/* A lead that follows earlier content within the same section. */
+.section__lead--follow {
+  margin-top: 2.25rem;
 }
 
 /* ---------- Projects ---------- */

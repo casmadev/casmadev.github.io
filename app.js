@@ -112,6 +112,8 @@ const GROUP_COLORS = {
     let baseDy = 0;
 
     note.addEventListener('pointerdown', (e) => {
+      // Mouse/pen only — on touch screens, dragging fights page scrolling.
+      if (e.pointerType === 'touch') return;
       e.preventDefault();
       note.setPointerCapture(e.pointerId);
       note.classList.add('is-dragging');
